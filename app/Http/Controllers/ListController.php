@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\ShoppingListRequest;
+use App\Models\ShoppingList;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,11 +16,33 @@ use Inertia\Response;
 class ListController extends Controller
 {
 
-    public function index()
+    public function index(): Response
     {
         $lists = auth()->user()->createdShoppingLists->concat(auth()->user()->shoppingLists);
+        $lists->map(function ($list) {
+            $list->editUrl = route('lists.edit', $list);
+
+            return $list;
+        });
         return Inertia::render('Lists/Index', [
             'lists' => $lists
         ]);
+    }
+
+    public function create(): Response
+    {
+        return Inertia::render('Lists/Form', []);
+    }
+
+    public function edit(ShoppingList $list): Response
+    {
+        return Inertia::render('Lists/Form', [
+            'list' => $list
+        ]);
+    }
+
+    public function update(ShoppingListRequest $request, ShoppingList $list)
+    {
+        $list->update($request->validated());
     }
 }

@@ -36,6 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/lists', [ListController::class, 'index'])->name('lists');
+    Route::get('/lists/create', [ListController::class, 'create'])->name('lists.create');
+    Route::post('/lists', [ListController::class, 'store'])->name('lists.store');
+    Route::get('/lists/{list}', [ListController::class, 'edit'])->name('lists.edit');
+    Route::put('/lists/{list}', [ListController::class, 'update'])->name('lists.update');
+    Route::delete('/lists/{list}', [ListController::class, 'destroy'])->name('lists.destroy');
 });
 
 require __DIR__.'/auth.php';
