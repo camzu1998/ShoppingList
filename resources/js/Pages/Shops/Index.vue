@@ -7,7 +7,7 @@
     const hideEmpty = shops.length === 0;
 </script>
 <template>
-    <Head title="Lists" />
+    <Head title="Shops" />
 
     <AuthenticatedLayout>
         <template #header>

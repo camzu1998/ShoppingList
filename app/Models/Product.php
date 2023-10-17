@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
-use  Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ShoppingList extends Model
+class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
         'name',
         'description',
-        'status'
+        'price',
+        'shop_id'
     ];
 
     public function creator(): BelongsTo
@@ -24,13 +24,13 @@ class ShoppingList extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function users(): BelongsToMany
+    public function shop(): BelongsTo
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(Shop::class);
     }
 
-    public function products(): BelongsToMany
+    public function lists(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(ShoppingList::class);
     }
 }
