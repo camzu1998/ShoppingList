@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Shop;
 use App\Models\ShoppingList;
 use App\Policies\ListPolicy;
+use App\Policies\ShopPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        ShoppingList::class => ListPolicy::class
+        ShoppingList::class => ListPolicy::class,
+        Shop::class => ShopPolicy::class,
     ];
 
     /**

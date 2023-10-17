@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Lists
     Route::get('/lists', [ListController::class, 'index'])->name('lists');
     Route::get('/lists/create', [ListController::class, 'create'])->name('lists.create');
     Route::post('/lists', [ListController::class, 'store'])->name('lists.store');
@@ -42,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/lists/{list}/edit', [ListController::class, 'edit'])->name('lists.edit');
     Route::put('/lists/{list}', [ListController::class, 'update'])->name('lists.update');
     Route::delete('/lists/{list}', [ListController::class, 'destroy'])->name('lists.destroy');
+    //Shops
+    Route::resource('shops', ShopController::class)->except('show');
 });
 
 require __DIR__.'/auth.php';
