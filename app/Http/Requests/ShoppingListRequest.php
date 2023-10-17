@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ShoppingListRequest extends FormRequest
 {
@@ -24,6 +25,7 @@ class ShoppingListRequest extends FormRequest
         return [
             'name' => ['required', 'max:250'],
             'description' => ['nullable'],
+            'status' => ['required', Rule::in(['active', 'inactive', 'archive'])]
         ];
     }
 }

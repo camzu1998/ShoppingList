@@ -1,7 +1,7 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, Link } from '@inertiajs/vue3';
-    import { defineProps } from 'vue'; // Dodaj to, aby można było korzystać z defineProps
+    import { defineProps } from 'vue';
 
     const { lists } = defineProps(['lists']);
     const hideEmpty = lists.length === 0;
@@ -20,11 +20,12 @@
                     <Link href="/lists/create" as="button" type="button">Add</Link>
                 </div>
 
-                <table class="table-auto bg-white overflow-hidden shadow-sm sm:rounded-lg" :class="{hidden: hideEmpty }">
+                <table class="table-auto w-full text-center bg-white overflow-hidden shadow-sm sm:rounded-lg" :class="{hidden: hideEmpty }">
                     <thead>
                         <tr>
                             <th>List name</th>
                             <th>List description</th>
+                            <th>List status</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -33,8 +34,9 @@
                         <tr v-for="list in lists">
                             <td>{{ list.name }}</td>
                             <td>{{ list.description }}</td>
+                            <td>{{ list.status }}</td>
                             <td><Link :href="'/lists/' + list.id" as="button" type="button">Edit</Link></td>
-                            <td><Link :href="'/lists/' + list.id" method="delete" as="button" type="button">Add</Link></td>
+                            <td><Link :href="'/lists/' + list.id" method="delete" as="button" type="button" class="border-rose-500 text-rose-500">Delete</Link></td>
                         </tr>
                     </tbody>
                 </table>

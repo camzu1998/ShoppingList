@@ -43,8 +43,24 @@ class ListController extends Controller
         ]);
     }
 
-    public function update(ShoppingListRequest $request, ShoppingList $list)
+    public function store(ShoppingListRequest $request): RedirectResponse
+    {
+        auth()->user()->createdShoppingLists()->create($request->validated());
+
+        return to_route('lists');
+    }
+
+    public function update(ShoppingListRequest $request, ShoppingList $list): RedirectResponse
     {
         $list->update($request->validated());
+
+        return to_route('lists');
+    }
+
+    public function destroy(ShoppingList $list): RedirectResponse
+    {
+        $list->delete();
+
+        return to_route('lists');
     }
 }
