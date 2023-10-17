@@ -15,12 +15,17 @@ use Inertia\Response;
 
 class ListController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(ShoppingList::class, 'list');
+    }
 
     public function index(): Response
     {
         $lists = auth()->user()->createdShoppingLists->concat(auth()->user()->shoppingLists);
         $lists->map(function ($list) {
             $list->editUrl = route('lists.edit', $list);
+            $list->isOwner = $list->user_id == auth()->id();
 
             return $list;
         });

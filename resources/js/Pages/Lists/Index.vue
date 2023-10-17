@@ -32,11 +32,11 @@
                     </thead>
                     <tbody>
                         <tr v-for="list in lists">
-                            <td>{{ list.name }}</td>
+                            <td><Link :href="'/lists/' + list.id">{{ list.name }}</Link></td>
                             <td>{{ list.description }}</td>
                             <td>{{ list.status }}</td>
-                            <td><Link :href="'/lists/' + list.id" as="button" type="button">Edit</Link></td>
-                            <td><Link :href="'/lists/' + list.id" method="delete" as="button" type="button" class="border-rose-500 text-rose-500">Delete</Link></td>
+                            <td><Link :href="'/lists/' + list.id + '/edit'" as="button" type="button" v-if="list.isOwner">Edit</Link></td>
+                            <td><Link :href="'/lists/' + list.id" method="delete" as="button" type="button" class="border-rose-500 text-rose-500" v-if="list.isOwner">Delete</Link></td>
                         </tr>
                     </tbody>
                 </table>
