@@ -31,7 +31,9 @@ class ListController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Lists/Form', []);
+        return Inertia::render('Lists/Form', [
+            'list' => ShoppingList::make()
+        ]);
     }
 
     public function edit(ShoppingList $list): Response
