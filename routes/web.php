@@ -38,13 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Lists
-    Route::get('/lists', [ListController::class, 'index'])->name('lists');
-    Route::get('/lists/create', [ListController::class, 'create'])->name('lists.create');
-    Route::post('/lists', [ListController::class, 'store'])->name('lists.store');
-    Route::get('/lists/{list}', [ListController::class, 'show'])->name('lists.show');
-    Route::get('/lists/{list}/edit', [ListController::class, 'edit'])->name('lists.edit');
-    Route::put('/lists/{list}', [ListController::class, 'update'])->name('lists.update');
-    Route::delete('/lists/{list}', [ListController::class, 'destroy'])->name('lists.destroy');
+    Route::resource('lists', ListController::class);
     //Shops
     Route::resource('shops', ShopController::class)->except('show');
     //Products

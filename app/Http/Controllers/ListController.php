@@ -47,20 +47,20 @@ class ListController extends Controller
     {
         auth()->user()->createdShoppingLists()->create($request->validated());
 
-        return to_route('lists');
+        return to_route('lists.index');
     }
 
     public function update(ShoppingListRequest $request, ShoppingList $list): RedirectResponse
     {
         $list->update($request->validated());
 
-        return to_route('lists');
+        return to_route('lists.index');
     }
 
     public function destroy(ShoppingList $list): RedirectResponse
     {
         $list->delete();
 
-        return to_route('lists');
+        return to_route('lists.index');
     }
 }
