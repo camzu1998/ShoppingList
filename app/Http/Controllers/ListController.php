@@ -43,6 +43,19 @@ class ListController extends Controller
         ]);
     }
 
+    public function show(ShoppingList $list): Response
+    {
+        return Inertia::render('Lists/Show', [
+            'list' => $list,
+            'products' => $list->load('products.shop')
+                                ->products->map(function ($product) {
+                                    $product->shopName = optional($product->shop)->name;
+
+                                    return $product;
+                                }),
+        ]);
+    }
+
     public function store(ShoppingListRequest $request): RedirectResponse
     {
         auth()->user()->createdShoppingLists()->create($request->validated());
