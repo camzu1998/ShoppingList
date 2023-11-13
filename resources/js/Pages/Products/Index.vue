@@ -34,9 +34,9 @@
                     <tbody>
                         <tr v-for="product in products">
                             <td>{{ product.name }}</td>
-                            <td>{{ product.description ?? 'Brak' }}</td>
-                            <td>{{ product.price ?? 'Brak' }}</td>
-                            <td>{{ product.shopName ?? 'Brak' }}</td>
+                            <td>{{ product.description ?? 'Empty' }}</td>
+                            <td>{{ product.price ?? 'Empty' }}</td>
+                            <td>{{ product.shopName ?? 'Empty' }}</td>
                             <td><Link :href="product.editUrl" as="button" type="button">Edit</Link></td>
                             <td><Link :href="'/products/' + product.id" method="delete" as="button" type="button" class="border-rose-500 text-rose-500">Delete</Link></td>
                         </tr>

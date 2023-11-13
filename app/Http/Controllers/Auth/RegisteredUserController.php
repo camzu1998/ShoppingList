@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Services\ListInviteService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,6 +47,11 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        $listInviteService = new ListInviteService();
+        $listInviteService = $listInviteService->setList();
+        $listInviteService = $listInviteService->setToken();
+        $listInviteService->accept();
 
         return redirect(RouteServiceProvider::HOME);
     }

@@ -26,7 +26,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('homepage');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -39,10 +39,15 @@ Route::middleware('auth')->group(function () {
 
     //Lists
     Route::resource('lists', ListController::class);
+    Route::get('lists/{list}/manage', [ListController::class, 'manage'])->name('lists.manage');
+    Route::post('lists/{list}/invite', [ListController::class, 'invite'])->name('lists.invite');
     //Shops
     Route::resource('shops', ShopController::class)->except('show');
     //Products
     Route::resource('products', ProductController::class)->except('show');
 });
+
+//Lists
+Route::get('lists/{list}/{token:token}/invite', [ListController::class, 'inviteAccept'])->name('lists.invite.accept');
 
 require __DIR__.'/auth.php';

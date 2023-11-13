@@ -6,6 +6,7 @@ use  Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ShoppingList extends Model
@@ -21,7 +22,7 @@ class ShoppingList extends Model
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function users(): BelongsToMany
@@ -32,5 +33,10 @@ class ShoppingList extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function tokens(): MorphMany
+    {
+        return $this->morphMany(Token::class, 'tokenable');
     }
 }

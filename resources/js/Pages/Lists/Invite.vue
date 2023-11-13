@@ -32,7 +32,7 @@ const statuses = ['active', 'inactive', 'archive'];
                 <div class="bg-white shadow-sm sm:rounded-lg">
                     <h3>Invite</h3>
                     <form @submit.prevent="submit" class="flex flex-col px-4 py-12">
-                        <Select :options="users" id="email" v-model="form.email"></Select>
+                        <Select :options="emails" id="email" v-model="form.email"></Select>
                         <PrimaryButton type="submit" class="mt-4 justify-center">Invite</PrimaryButton>
                     </form>
                     <hr>

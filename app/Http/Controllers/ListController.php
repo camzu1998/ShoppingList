@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ListInviteRequest;
 use App\Http\Requests\ShoppingListRequest;
+use App\Mail\ListInvite;
 use App\Models\ShoppingList;
+use App\Models\Token;
+use App\Services\ListInviteService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -56,9 +62,15 @@ class ListController extends Controller
             'products' => $products,
         ]);
     }
-    public function inviteForm(ShoppingList $list): Response
+    public function manage(ShoppingList $list): Response
     {
-        $emails = auth()->user()->load('createdShoppingLists.users')->createdShoppingLists->users->pluck('email')->toArray();
+        $emails = collect();
+        $lists = auth()->user()->load('createdShoppingLists.users')->createdShoppingLists;
+        foreach ($lists as $list) {
+            $emails->push($list->users->pluck('email'));
+        }
+        $emails = $emails->flatten()->unique()->toArray();
+
         return Inertia::render('Lists/Invite', [
             'list' => $list->load('users'),
             'emails' => $emails,
@@ -75,6 +87,33 @@ class ListController extends Controller
     public function update(ShoppingListRequest $request, ShoppingList $list): RedirectResponse
     {
         $list->update($request->validated());
+
+        return to_route('lists.index');
+    }
+
+    public function invite(ListInviteRequest $request, ShoppingList $list): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        $listInviteService = new ListInviteService();
+        $listInviteService = $listInviteService->setList($list);
+        $listInviteService->generateTokenAndSendMail($validated['email']);
+
+        return to_route('lists.index');
+    }
+
+    public function inviteAccept(ShoppingList $list, Token $token): RedirectResponse
+    {
+        if (!auth()->check()) {
+            session()->put('list', $list->id);
+            session()->put('token', $token->id);
+
+            return to_route('homepage');
+        }
+        $listInviteService = new ListInviteService();
+        $listInviteService = $listInviteService->setList($list);
+        $listInviteService = $listInviteService->setToken($token);
+        $listInviteService->accept();
 
         return to_route('lists.index');
     }
