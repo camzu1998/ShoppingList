@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
 
     //Lists
     Route::resource('lists', ListController::class);
+    Route::post('lists/{list}/products', [ListController::class, 'products'])->name('lists.products');
     Route::get('lists/{list}/manage', [ListController::class, 'manage'])->name('lists.manage');
     Route::post('lists/{list}/invite', [ListController::class, 'invite'])->name('lists.invite');
     //Shops

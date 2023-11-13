@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ListInviteRequest;
+use App\Http\Requests\ListProductsRequest;
 use App\Http\Requests\ShoppingListRequest;
 use App\Mail\ListInvite;
+use App\Models\Product;
 use App\Models\ShoppingList;
 use App\Models\Token;
 use App\Services\ListInviteService;
@@ -87,6 +89,28 @@ class ListController extends Controller
     public function update(ShoppingListRequest $request, ShoppingList $list): RedirectResponse
     {
         $list->update($request->validated());
+
+        return to_route('lists.index');
+    }
+
+    public function products(ListProductsRequest $request, ShoppingList $list): RedirectResponse
+    {
+        $productIds = [];
+        $validated = $request->validated();
+        foreach ($validated['products'] as $product) {
+            $productModel = Product::updateOrCreate(
+                [
+                    'user_id' => auth()->id(),
+                    'name' => $product['name']
+                ],
+                [
+                    'price' => $product['price']
+                ]
+            );
+            $productIds[] = $productModel->id;
+        }
+
+        $list->products()->sync($productIds);
 
         return to_route('lists.index');
     }

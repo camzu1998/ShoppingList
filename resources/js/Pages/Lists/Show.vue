@@ -11,8 +11,17 @@ const addProduct = () => {
 };
 
 const submitForm = () => {
-    // Przetwarzanie danych z formularza
-    console.log(products);
+    var formData = new FormData();
+
+    products.forEach((product, index) => {
+        if (product['name'] != "") {
+            formData.append('products[' + index + '][name]', product['name']);
+            formData.append('products[' + index + '][price]', product['price'] ?? "");
+        }
+    })
+
+    router.post('/lists/' + list.id + '/products', formData)
+    console.log(formData);
 };
 </script>
 
