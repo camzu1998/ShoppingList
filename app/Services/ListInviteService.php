@@ -26,7 +26,7 @@ class ListInviteService
         if (!empty(session()->get('list')) && $list == null) {
             $this->list = ShoppingList::find(session()->get('list'));
             session()->forget('list');
-        } else {
+        } else if($list != null) {
             $this->list = $list;
         }
 
@@ -38,7 +38,7 @@ class ListInviteService
         if (!empty(session()->get('token')) && $token == null) {
             $this->token = Token::find(session()->get('token'));
             session()->forget('token');
-        } else {
+        } else if($token != null) {
             $this->token = $token;
         }
 
