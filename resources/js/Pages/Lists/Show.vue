@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import {reactive, defineProps} from 'vue';
 import {Head, router} from '@inertiajs/vue3';
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
 const { products, list } = defineProps(['products', 'list']);
 
@@ -56,7 +57,7 @@ export default {
                     @removeProduct="removeProduct"
                 ></ProductForm>
                 <PrimaryButton type="button" @click="addProduct">Add Product</PrimaryButton>
-                <button type="submit">Submit</button>
+                <SecondaryButton type="submit" bg="lime">Submit</SecondaryButton>
             </form>
         </div>
     </AuthenticatedLayout>
