@@ -17,5 +17,7 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+
+        <script src="https://kit.fontawesome.com/309a8b3aa5.js" crossorigin="anonymous"></script>
     </body>
 </html>
