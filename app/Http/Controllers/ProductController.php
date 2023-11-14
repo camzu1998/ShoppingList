@@ -47,7 +47,8 @@ class ProductController extends Controller
     public function edit(Product $product): Response
     {
         return Inertia::render('Products/Form', [
-            'product' => $product
+            'product' => $product,
+            'shops' => auth()->user()->shops->toArray()
         ]);
     }
 
