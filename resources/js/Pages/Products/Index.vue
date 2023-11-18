@@ -44,7 +44,7 @@
                 </table>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" :class="{hidden: !hideEmpty }">
-                    <div class="p-6 text-gray-900" >Your products is empty!</div>
+                    <div class="p-6 text-gray-900">Your products is empty!</div>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-sm sm:rounded-lg flex justify-end mb-4">
-                    <Link href="/lists/create" as="button" type="button" class="text-purple-100 bg-blue-800 px-4 py-1 rounded-md">Add <i class="fa-solid fa-plus fa-beat-fade"></i></Link>
+                    <Link href="/lists/create" as="button" type="button" class="text-purple-100 bg-blue-800 px-4 py-1 rounded-md">Add <i class="fa-solid fa-plus fa-bounce"></i></Link>
                 </div>
 
                 <table class="table-auto w-full text-center bg-purple-600 text-purple-100 overflow-hidden shadow-sm sm:rounded-lg" :class="{hidden: hideEmpty }">

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 
 class ShoppingList extends Model
 {
@@ -38,5 +39,10 @@ class ShoppingList extends Model
     public function tokens(): MorphMany
     {
         return $this->morphMany(Token::class, 'tokenable');
+    }
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('status', 'active');
     }
 }

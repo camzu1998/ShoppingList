@@ -47,18 +47,20 @@ export default {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">List</h2>
         </template>
 
-        <div>
-            <form @submit.prevent="submitForm">
-                <ProductForm
-                    v-for="(product, index) in products"
-                    :key="index"
-                    :product="product"
-                    :index="index"
-                    @removeProduct="removeProduct"
-                ></ProductForm>
-                <PrimaryButton type="button" @click="addProduct">Add Product</PrimaryButton>
-                <SecondaryButton type="submit" bg="lime">Submit</SecondaryButton>
-            </form>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-purple-600 overflow-hidden shadow-sm sm:rounded-lg">
+                <form @submit.prevent="submitForm">
+                    <ProductForm
+                        v-for="(product, index) in products"
+                        :key="index"
+                        :product="product"
+                        :index="index"
+                        @removeProduct="removeProduct"
+                    ></ProductForm>
+                    <PrimaryButton type="button" @click="addProduct">Add Product</PrimaryButton>
+                    <SecondaryButton type="submit" bg="lime">Submit</SecondaryButton>
+                </form>
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>
