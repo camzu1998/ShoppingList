@@ -33,7 +33,7 @@ class ShoppingList extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot(['bought_at']);
     }
 
     public function tokens(): MorphMany

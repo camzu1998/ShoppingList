@@ -55,6 +55,7 @@ export default {
                         :key="index"
                         :product="product"
                         :index="index"
+                        :is-list="true"
                         @removeProduct="removeProduct"
                     ></ProductForm>
                     <PrimaryButton type="button" @click="addProduct">Add Product</PrimaryButton>
